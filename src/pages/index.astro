@@ -32,7 +32,7 @@ function getJoinButtonImages() {
   </head>
   <body class="bg-bg-primary text-main text-text-primary antialiased">
     <header class="mt-14 lg:mt-0">
-      <div class="flex flex-col lg:gap-2 lg:grid grid-cols-9 lg:pt-4 container">
+      <div class="flex flex-col lg:gap-2 lg:grid lg:grid-cols-7 xl:grid-cols-9 lg:pt-4 container">
         <div
           class="top-0 z-[100] fixed inset-x-0 lg:inset-[unset] flex justify-between col-span-2 bg-bg-primary lg:bg-none px-4 py-4 lg:p-0"
         >
@@ -58,7 +58,7 @@ function getJoinButtonImages() {
 
     <!-- Content -->
     <div
-      class="relative flex flex-col items-start lg:gap-2 lg:grid grid-cols-9 grid-flow-col-dense mt-[160px] lg:mt-[113px] container"
+      class="relative flex flex-col items-start lg:gap-2 lg:grid lg:grid-cols-7 xl:grid-cols-9 grid-flow-col-dense mt-[160px] lg:mt-[113px] container"
     >
       <!-- Menu -->
       <nav
@@ -147,9 +147,9 @@ function getJoinButtonImages() {
       <div class="col-span-full mt-40"></div>
       <div
         id="authors"
-        class="flex flex-col gap-x-2 lg:grid grid-cols-9 col-span-full pb-40 w-full"
+        class="flex flex-col gap-x-2 lg:grid lg:grid-cols-7 xl:grid-cols-9 col-span-full pb-40 w-full"
       >
-        <h2 class="col-start-2 mb-4 lg:mb-0 text-body">Authors directory:</h2>
+        <h2 class="col-start-2 mb-4 lg:mb-0 text-body">Authors <br class="lg:block hidden xl:hidden"/>directory:</h2>
         {
           authorsCollection.map(({ data: author }, i) => (
             <div
@@ -188,7 +188,7 @@ function getJoinButtonImages() {
       </div>
 
       <!-- About -->
-      <h2 class="col-start-2 mb-4 text-body lg:mg-0">About the project:</h2>
+      <h2 class="col-start-2 mb-4 text-body lg:mg-0">About the <br class="lg:block hidden xl:hidden"/>project:</h2>
       <div id="about" class="flex flex-col gap-11 col-start-3 col-end-[-1]">
         <p>
           The process encompassed both individual and collective elements, with
