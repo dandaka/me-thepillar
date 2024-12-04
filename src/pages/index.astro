@@ -1,16 +1,506 @@
 ---
+import "@styles/base.css";
+import "@styles/index.css";
+
+import { Picture } from "astro:assets";
+import { getCollection } from "astro:content";
+
+const authorsCollection = await getCollection("authors").then((authors) => {
+  return authors.sort((a, b) => a.data.order - b.data.order);
+});
+
+function getJoinButtonImages() {
+  try {
+    return import.meta.glob<{ default: ImageMetadata }>(
+      "@assets/images/join-button/*.{jpeg,jpg,png,gif,webp}"
+    );
+  } catch (e) {
+    console.warn("No images found in the specified folder or folder does not exist.");
+    return {};
+  }
+}
 
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body class="bg-bg-primary text-main text-text-primary antialiased">
+    <header class="mt-14 lg:mt-0">
+      <div class="flex flex-col lg:gap-2 lg:grid grid-cols-9 lg:pt-4 container">
+        <div
+          class="top-0 z-[100] fixed inset-x-0 lg:inset-[unset] flex justify-between col-span-2 bg-bg-primary lg:bg-none px-4 py-4 lg:p-0"
+        >
+          <h1 class="top-0 lg:sticky">ThePILLAR</h1>
+          <button data-menu-button class="lg:hidden">(+)</button>
+        </div>
+        <p class="lg:col-start-3 lg:col-end-[-1] mt-8 lg:mt-0 text-balance">
+          A collaborative project conceived by <a
+            href=""
+            target="_blank"
+            class="hover:text-white underline underline-offset-4 decoration-2"
+            >Misha Katz</a
+          >, the visionary behind <a
+            href=""
+            target="_blank"
+            class="hover:text-white underline underline-offset-4 decoration-2"
+            >Method.Education</a
+          >, serving as a space for deep introspection of students creative
+          identities through the practice of crafting "self-objects" in 3D.
+        </p>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div
+      class="relative flex flex-col items-start lg:gap-2 lg:grid grid-cols-9 grid-flow-col-dense mt-[160px] lg:mt-[113px] container"
+    >
+      <!-- Menu -->
+      <nav
+        data-menu
+        class="top-14 lg:top-[unset] z-[100] lg:z-0 fixed inset-x-0 lg:inset-[unset] lg:flex hidden col-start-1 row-start-1 bg-bg-primary lg:bg-none p-4 lg:p-0 text-body"
+      >
+        <ul class="flex flex-col gap-2">
+          {
+            ["Gallery", "Authors", "About", "Join"].map((item) => (
+              <li class="">
+                <a
+                  data-menu-item
+                  class="inline-flex gap-[1ch] before:content-['(_)'] hover:[&>span]:underline"
+                  href={`#${item.toLowerCase()}`}
+                >
+                  <span class="">{item}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <!-- Gallery -->
+      <div id="gallery" class="absolute col-span-full"></div>
+      <ul class="lg:contents flex flex-col gap-2" aria-title="Gallery">
+        {
+          authorsCollection.map(({ data: author }) => (
+            <li class="contents">
+              <a
+                data-gallery-work
+                class="flex flex-col-reverse lg:pointer-events-none lg:contents"
+                href={author.caseURL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {/* Author info */}
+                <div class="relative z-50 gap-2 lg:grid grid-cols-2 col-start-1 col-end-3 w-full">
+                  <div class="lg:block static flex justify-between col-start-2 mt-2 lg:mt-0 text-body">
+                    <div class="">{author.name}</div>
+                    <div
+                      data-view-case-button
+                      class="hover:text-white underline lg:pointer-events-auto"
+                    >
+                      View case (→)
+                    </div>
+                  </div>
+                  {/* Cases */}
+                  <div
+                    data-gallery-slides
+                    class="lg:block relative hidden col-span-2 w-full h-[158px]"
+                  >
+                    {author.caseThumbnails &&
+                      author.caseThumbnails.length &&
+                      author.caseThumbnails.map(
+                        (img: ImageMetadata) =>
+                          img && (
+                            <Picture
+                              class="absolute inset-0 h-full invisible object-cover"
+                              width={320}
+                              densities={[1, 2]}
+                              src={img}
+                              alt=""
+                            />
+                          )
+                      )}
+                  </div>
+                </div>
+                {/* Work */}
+                {author.workImg && (
+                  <Picture
+                    class="col-start-3 col-end-[-1] rounded-[4px] lg:rounded-lg w-full overflow-hidden object-cover"
+                    src={author.workImg as ImageMetadata}
+                    widths={[430, 640, 1280, 1920, (author.workImg as ImageMetadata).width]}
+                    sizes={`(max-width: 430px) 430px, (max-width: 640px) 640px, (max-width: 1280px) 1280px, (max-width: 1920px) 1920px, ${(author.workImg as ImageMetadata).width}px`}
+                    alt=""
+                  />
+                )}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <!-- Authors -->
+      <div class="col-span-full mt-40"></div>
+      <div
+        id="authors"
+        class="flex flex-col gap-x-2 lg:grid grid-cols-9 col-span-full pb-40 w-full"
+      >
+        <h2 class="col-start-2 mb-4 lg:mb-0 text-body">Authors directory:</h2>
+        {
+          authorsCollection.map(({ data: author }, i) => (
+            <div
+              data-author
+              class="flex border-y col-start-3 -col-end-1 border-text-primary/30 has-[a:hover]:border-t-white [&~li]:border-b-0 first:border-b-0 last:border-b"
+            >
+              <a
+                class="flex justify-between items-center py-3 w-full hover:text-white"
+                href={author.caseURL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>{author.name}</span>
+                {author.caseURL && <span>(→)</span>}
+              </a>
+              <div
+                data-author-slides
+                class={`hidden pointer-events-none lg:block absolute left-0 col-span-2 col-end-3 h-[153px] w-full row-start-${i + 1}`}
+              >
+                {author.caseThumbnails &&
+                  author.caseThumbnails.length &&
+                  author.caseThumbnails.map(
+                    (img: ImageMetadata) =>
+                      img && (
+                        <Picture
+                          class="absolute inset-0 h-full invisible object-cover"
+                          src={img}
+                          alt=""
+                        />
+                      )
+                  )}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- About -->
+      <h2 class="col-start-2 mb-4 text-body lg:mg-0">About the project:</h2>
+      <div id="about" class="flex flex-col gap-11 col-start-3 col-end-[-1]">
+        <p>
+          The process encompassed both individual and collective elements, with
+          each participant delving into their essence by creating and detailing
+          three-dimensional self-objects on their personal segment of the
+          Pillar. These objects, embodying the creator’s inner world, offered
+          a symbolic interpretation of their views and values in a tangible
+          form.
+        </p>
+        <p>
+          A distinctive feature of the project was the personalized mentoring
+          sessions, an integral part of the educational experience. These
+          meetings allowed each student to explore their ideas and experiences
+          more deeply, receiving tailored guidance and support.
+        </p>
+        <p>
+          By employing 3D visualization techniques and storytelling, the project
+          bridged the internal and external, the personal and the communal, the
+          technical and the spiritual. It demonstrated how profound
+          self-discovery and collective engagement, through both planned and
+          intuitive elements, can lead to the unlocking of creative potential
+          and self-realization. Through this journey, students not only learned
+          the technical aspects of their craft but also underwent
+          a transformation, gaining confidence in their capabilities and
+          a deeper understanding of their own creative "self."
+        </p>
+      </div>
+
+      <!-- Join -->
+      <!-- <div class="col-span-full mt-40"></div> -->
+      <a
+        id="join"
+        data-join-button
+        href=""
+        class="relative flex justify-center items-center border-white col-start-3 col-end-[-1] mt-40 mb-4 py-[90px] lg:py-[230px] border hover:border-transparent rounded-[4px] w-full lg:w-auto text-[40px] lg:text-[83px] overflow-hidden"
+      >
+        <span class="relative z-10 mix-blend-difference"
+          >JOIN TO THE PILLAR</span
+        >
+        <div data-join-slides class="z-0 absolute inset-0">
+          {
+            Object.values(getJoinButtonImages()).map((img) => (
+              <Picture
+                class="absolute inset-0 h-full invisible object-cover"
+                src={img()}
+                alt=""
+              />
+            ))
+          }
+        </div>
+      </a>
+
+      <!-- Footer -->
+      <footer
+        class="lg:block bottom-4 fixed hidden col-start-1 row-span-full mt-auto text-body"
+      >
+        Curated by <br /><a href="" class="underline">Method.Education</a>
+      </footer>
+    </div>
+  </body>
 </html>
+
+<style>
+  html {
+    @apply scroll-pt-14;
+  }
+
+  .active-state::before {
+    content: "(•)";
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  //#region [Menu]
+  const menuItems = document.querySelectorAll(
+    "[data-menu-item]"
+  ) as NodeListOf<HTMLLinkElement>;
+
+  menuItems.forEach((item) => {
+    // add active state if section with same id is in viewport
+    const section = document.querySelector(
+      `#${item.href.split("#")[1]}`
+    ) as HTMLElement;
+
+    if (!section) return;
+
+    // if (section.id !== "about") {
+    //   return
+    // }
+
+    function calculateEndTrigger() {
+      if (section.id === "join") {
+        return "bottom center";
+      } else if (section.id === "gallery") {
+        const lastGalleryWorks = document.querySelectorAll(
+          "[data-gallery-work] > picture img"
+        ) as NodeListOf<HTMLImageElement>;
+
+        let worksLength = 0;
+        lastGalleryWorks.forEach((work) => {
+          worksLength += work.getBoundingClientRect().height;
+        });
+        return `bottom+=${worksLength}px center`;
+      } else {
+        return "bottom center";
+      }
+    }
+
+    ScrollTrigger.create({
+      trigger: section,
+      start: () => (section.id === "join" ? "top center" : "top center"),
+      end: () => calculateEndTrigger(),
+      // markers: true,
+      onEnter: () => {
+        menuItems.forEach((item) => {
+          item.classList.remove("active-state");
+        });
+        item.classList.add("active-state");
+      },
+      onEnterBack: () => {
+        menuItems.forEach((item) => {
+          item.classList.remove("active-state");
+        });
+        item.classList.add("active-state");
+      },
+    });
+  });
+
+  //#endregion [Menu]
+</script>
+
+<script>
+  //#region [Gallery slides]
+  const galleryWorks = document.querySelectorAll(
+    "[data-gallery-work]"
+  ) as NodeListOf<HTMLElement>;
+
+  let sliderGalleryIntervals: NodeJS.Timeout[] = [];
+  let sliderGalleryTimeout: NodeJS.Timeout[] = [];
+
+  galleryWorks.forEach((author) => {
+    const viewCaseButton = author.querySelector(
+      "[data-view-case-button]"
+    ) as HTMLElement;
+    const gallerySlides = author.querySelectorAll(
+      "[data-gallery-slides] img"
+    ) as NodeListOf<HTMLElement>;
+
+    viewCaseButton.addEventListener("mouseenter", startGallerySlider);
+    viewCaseButton.addEventListener("mouseleave", stopGallerySlider);
+
+    function startGallerySlider() {
+      stopGallerySlider();
+
+      gallerySlides.forEach((slide, i) => {
+        sliderGalleryTimeout[i] = setTimeout(() => {
+          slide.classList.toggle("invisible");
+
+          const interval = setInterval(() => {
+            gallerySlides.forEach((s) => s.classList.add("invisible"));
+            slide.classList.toggle("invisible");
+          }, gallerySlides.length * 300);
+
+          sliderGalleryIntervals.push(interval);
+        }, 300 * i);
+      });
+    }
+
+    function stopGallerySlider() {
+      sliderGalleryIntervals.forEach((interval) => clearInterval(interval));
+      sliderGalleryIntervals = [];
+      sliderGalleryTimeout.forEach((timeout) => window.clearTimeout(timeout));
+      sliderGalleryTimeout = [];
+
+      gallerySlides.forEach((slide) => {
+        slide.classList.add("invisible");
+      });
+    }
+  });
+  //#endregion [Gallery slides]
+
+  //#region [Authors slides]
+  const authors = document.querySelectorAll(
+    "[data-author]"
+  ) as NodeListOf<HTMLElement>;
+
+  let sliderAuthorsIntervals: NodeJS.Timeout[] = [];
+  let sliderAuthorsTimeout: NodeJS.Timeout[] = [];
+
+  authors.forEach((author) => {
+    const authorSlides = author.querySelectorAll(
+      "[data-author-slides] img"
+    ) as NodeListOf<HTMLElement>;
+
+    author.addEventListener("mouseenter", startGallerySlider);
+    author.addEventListener("mouseleave", stopGallerySlider);
+
+    function startGallerySlider() {
+      stopGallerySlider();
+
+      authorSlides.forEach((slide, i) => {
+        sliderAuthorsTimeout[i] = setTimeout(() => {
+          slide.classList.toggle("invisible");
+
+          const interval = setInterval(() => {
+            authorSlides.forEach((s) => s.classList.add("invisible"));
+            slide.classList.toggle("invisible");
+          }, authorSlides.length * 300);
+
+          sliderAuthorsIntervals.push(interval);
+        }, 300 * i);
+      });
+    }
+
+    function stopGallerySlider() {
+      sliderAuthorsIntervals.forEach((interval) => clearInterval(interval));
+      sliderAuthorsIntervals = [];
+      sliderAuthorsTimeout.forEach((timeout) => window.clearTimeout(timeout));
+      sliderAuthorsTimeout = [];
+
+      authorSlides.forEach((slide) => {
+        slide.classList.add("invisible");
+      });
+    }
+  });
+  //#endregion [Authors slides]
+
+  //#region [Join slides]
+  const joinSlidesContainer = document.querySelector("[data-join-slides]");
+  const joinSlides = joinSlidesContainer.querySelectorAll(
+    "img"
+  ) as NodeListOf<HTMLImageElement>;
+  const joinButton = document.querySelector("[data-join-button]");
+
+  let sliderIntervals: NodeJS.Timeout[] = [];
+  let sliderTimeout: NodeJS.Timeout[] = [];
+
+  function startSlider() {
+    stopSlider();
+
+    joinSlides.forEach((slide, i) => {
+      sliderTimeout[i] = setTimeout(() => {
+        slide.classList.toggle("invisible");
+
+        const interval = setInterval(() => {
+          joinSlides.forEach((s) => s.classList.add("invisible"));
+          slide.classList.toggle("invisible");
+        }, joinSlides.length * 300);
+
+        sliderIntervals.push(interval);
+      }, 300 * i);
+    });
+  }
+
+  function stopSlider() {
+    sliderIntervals.forEach(clearInterval);
+    sliderIntervals = [];
+    sliderTimeout.forEach(clearTimeout);
+    sliderTimeout = [];
+
+    joinSlides.forEach((slide) => {
+      slide.classList.add("invisible");
+    });
+  }
+
+  joinButton.addEventListener("mouseenter", startSlider);
+  joinButton.addEventListener("mouseleave", stopSlider);
+  //#endregion [Join slides]
+</script>
+
+<script>
+  //#region [Mobile menu]
+  const menuEl = document.querySelector("[data-menu]") as HTMLElement;
+  const menuToggle = document.querySelector(
+    "[data-menu-button]"
+  ) as HTMLElement;
+  const menuItems = document.querySelectorAll(
+    "[data-menu-item]"
+  ) as NodeListOf<HTMLLinkElement>;
+
+  function toggleMenuIcon() {
+    menuToggle.innerText = menuToggle.innerText === "(+)" ? "(-)" : "(+)";
+    menuEl.classList.toggle("hidden");
+  }
+
+  menuToggle.addEventListener("click", () => {
+    if (window.matchMedia("(min-width: 1024px)").matches) {
+      return;
+    }
+    toggleMenuIcon();
+  });
+  menuItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      if (window.matchMedia("(min-width: 1024px)").matches) {
+      return;
+    }
+    toggleMenuIcon();
+    });
+  });
+
+  // Handle click outside menu
+  document.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+    if (target.closest("[data-menu]") || target.closest("[data-menu-button]")) {
+      return;
+    } else {
+      menuEl.classList.add("hidden");
+    }
+  });
+  //#endregion [Mobile menu]
+</script>

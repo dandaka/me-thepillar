@@ -1,0 +1,16 @@
+{
+    "order": 1,
+    "name": "Tanya Akhmetgalieva",
+    "workImg": "./_assets/tanya-work.jpg",
+    "caseURL": "https://www.behance.net/gallery/205516987/THE-PILLAR",
+    "caseThumbnails": [
+        "./_assets/case-thumbnails/tanya-thumb-1.webp",
+        "./_assets/case-thumbnails/tanya-thumb-2.webp",
+        "./_assets/case-thumbnails/tanya-thumb-3.webp",
+        "./_assets/case-thumbnails/tanya-thumb-4.webp",
+        "./_assets/case-thumbnails/tanya-thumb-5.webp",
+        "./_assets/case-thumbnails/tanya-thumb-6.webp",
+        "./_assets/case-thumbnails/tanya-thumb-7.webp",
+        "./_assets/case-thumbnails/tanya-thumb-8.webp"
+    ]
+}

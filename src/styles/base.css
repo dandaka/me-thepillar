@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Kommuna";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../assets/fonts/Kommuna-Narrow.woff2) format("woff2");
+  }
+
+  .container {
+    @apply max-w-[1440px] px-4 mx-auto;
+  }
+
+  .text-main {
+    @apply text-[30px] leading-[100%] tracking-[-.04em] lg:text-[40px];
+  }
+
+  .text-body {
+    @apply text-[16px] leading-[125%] tracking-[-.01em];
+  }
+
+  picture {
+    display: contents;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}

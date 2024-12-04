@@ -1,14 +1,4 @@
-# Astro Starter Kit: Minimal
-
-```sh
-npm create astro@latest -- --template minimal
-```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+# THE PILLAR
 
 ## 🚀 Project Structure
 
@@ -45,3 +35,36 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+
+## ⚒️ How to create an author
+
+Run command in terminal:
+```sh
+node createAuthors.js "Author Name"
+```
+or if you want to create multiple authors:
+
+```sh
+node createAuthors.js '["Liza Benesh", "Rina Sokolova"]'`
+```
+
+You can find scheme of author data in `./src/content/config.ts`
+
+Example of author's JSON file:
+```json
+{
+    "order": 2,
+    "name": "Liza Benesh",
+    "workImg": "./_assets/liza-work.png",
+    "caseURL": "https://www.behance.net/gallery/205560743/The-Pillar-A-Creative-Journey-Through-Summer-3D-Camp",
+    "caseThumbnails": [
+        "./_assets/case-thumbnails/liza-thumb-1.webp",
+        "./_assets/case-thumbnails/liza-thumb-2.webp",
+        "./_assets/case-thumbnails/liza-thumb-3.webp",
+        "./_assets/case-thumbnails/liza-thumb-4.webp",
+        "./_assets/case-thumbnails/liza-thumb-5.webp",
+        "./_assets/case-thumbnails/liza-thumb-6.webp"
+    ]
+}
+```
