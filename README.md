@@ -49,6 +49,8 @@ or if you want to create multiple authors:
 node createAuthors.js '["Liza Benesh", "Rina Sokolova"]'`
 ```
 
+or just copy-paste current author's folder and edit it.
+
 You can find scheme of author data in `./src/content/config.ts`
 
 Example of author's JSON file:
