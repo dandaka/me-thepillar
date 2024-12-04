@@ -11,16 +11,20 @@
     src: url(../assets/fonts/Kommuna-Narrow.woff2) format("woff2");
   }
 
+  html {
+    @apply text-[unset]  lg:text-[1.3vw] xl:text-[1.11vw]
+  }
+
   .container {
-    @apply max-w-[1440px] px-4 mx-auto;
+    @apply  px-4 mx-auto;
   }
 
   .text-main {
-    @apply text-[30px] leading-[100%] tracking-[-.04em] lg:text-[40px];
+    @apply text-[1.87rem] leading-[100%] tracking-[-.04em] lg:text-[2.5rem];
   }
 
   .text-body {
-    @apply text-[16px] leading-[125%] tracking-[-.01em];
+    @apply text-[1rem] leading-[125%] tracking-[-.01em];
   }
 
   picture {
