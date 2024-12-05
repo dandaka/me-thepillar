@@ -1,0 +1,16 @@
+{
+  "order": 14,
+  "name": "Anastasia Gridasova",
+  "workImg": "./_assets/anastasia-grid-work.png",
+  "caseURL": "https://readymag.website/u4246499849/4955796/",
+  "caseThumbnails": [
+    "./_assets/case-thumbnails/anastasia-grid-thumbnail-1.jpg",
+    "./_assets/case-thumbnails/anastasia-grid-thumbnail-2.jpg",
+    "./_assets/case-thumbnails/anastasia-grid-thumbnail-3.jpg",
+    "./_assets/case-thumbnails/anastasia-grid-thumbnail-4.jpg",
+    "./_assets/case-thumbnails/anastasia-grid-thumbnail-5.jpg",
+    "./_assets/case-thumbnails/anastasia-grid-thumbnail-6.jpg",
+    "./_assets/case-thumbnails/anastasia-grid-thumbnail-7.jpg",
+    "./_assets/case-thumbnails/anastasia-grid-thumbnail-8.jpg"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "order": 15,
+  "name": "Victoria Volokitina",
+  "workImg": "./_assets/victoria-volo-work.png",
+  "caseURL": "https://www.figma.com/proto/PibDHG56BTiRtYYqRhkzWB/%D0%9A%D1%83%D1%80%D1%81-3D?page-id=704%3A126&node-id=704-127&viewport=742%2C2064%2C0.43&t=hzjt5mkLrowBypum-1&scaling=min-zoom&content-scaling=fixed",
+  "caseThumbnails": [
+    "./_assets/case-thumbnails/victori-volo-thumbnail-1.jpg",
+    "./_assets/case-thumbnails/victori-volo-thumbnail-2.jpg",
+    "./_assets/case-thumbnails/victori-volo-thumbnail-3.jpg",
+    "./_assets/case-thumbnails/victori-volo-thumbnail-4.jpg"
+  ]
+}

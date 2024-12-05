@@ -1,0 +1,16 @@
+{
+  "order": 8,
+  "name": "Masha Mokshantseva",
+  "workImg": "./_assets/masha-mok-work.jpg",
+  "caseURL": "https://readymag.website/mmoksh/4383203/",
+  "caseThumbnails": [
+    "./_assets/case-thumbnails/masha-mok-thumbnail-1.jpg",
+    "./_assets/case-thumbnails/masha-mok-thumbnail-2.jpg",
+    "./_assets/case-thumbnails/masha-mok-thumbnail-3.jpg",
+    "./_assets/case-thumbnails/masha-mok-thumbnail-4.jpg",
+    "./_assets/case-thumbnails/masha-mok-thumbnail-5.jpg",
+    "./_assets/case-thumbnails/masha-mok-thumbnail-6.jpg",
+    "./_assets/case-thumbnails/masha-mok-thumbnail-7.jpg",
+    "./_assets/case-thumbnails/masha-mok-thumbnail-8.jpg"
+  ]
+}

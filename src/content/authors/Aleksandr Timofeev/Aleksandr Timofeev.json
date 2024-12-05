@@ -1,0 +1,16 @@
+{
+  "order": 6,
+  "name": "Aleksandr Timofeev",
+  "workImg": "./_assets/timofeev-work.png",
+  "caseURL": "https://www.behance.net/gallery/206556485/The-Pillar",
+  "caseThumbnails": [
+    "./_assets/case-thumbnails/timofeev-thumbnail-1.jpg",
+    "./_assets/case-thumbnails/timofeev-thumbnail-2.jpg",
+    "./_assets/case-thumbnails/timofeev-thumbnail-3.jpg",
+    "./_assets/case-thumbnails/timofeev-thumbnail-4.jpg",
+    "./_assets/case-thumbnails/timofeev-thumbnail-5.jpg",
+    "./_assets/case-thumbnails/timofeev-thumbnail-6.jpg",
+    "./_assets/case-thumbnails/timofeev-thumbnail-7.jpg",
+    "./_assets/case-thumbnails/timofeev-thumbnail-8.jpg"
+  ]
+}

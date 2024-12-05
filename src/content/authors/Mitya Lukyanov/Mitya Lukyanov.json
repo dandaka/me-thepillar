@@ -1,0 +1,16 @@
+{
+  "order": 10,
+  "name": "Mitya Lukyanov",
+  "workImg": "./_assets/mitya-luk-work.png",
+  "caseURL": "https://readymag.website/u3033233810/4924837/",
+  "caseThumbnails": [
+    "./_assets/case-thumbnails/mitya-thumbnail-1.jpg",
+    "./_assets/case-thumbnails/mitya-thumbnail-2.jpg",
+    "./_assets/case-thumbnails/mitya-thumbnail-3.jpg",
+    "./_assets/case-thumbnails/mitya-thumbnail-4.jpg",
+    "./_assets/case-thumbnails/mitya-thumbnail-5.jpg",
+    "./_assets/case-thumbnails/mitya-thumbnail-6.jpg",
+    "./_assets/case-thumbnails/mitya-thumbnail-7.jpg",
+    "./_assets/case-thumbnails/mitya-thumbnail-8.jpg"
+  ]
+}

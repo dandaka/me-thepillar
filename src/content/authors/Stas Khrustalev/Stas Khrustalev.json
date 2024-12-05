@@ -1,0 +1,17 @@
+{
+  "order": 7,
+  "name": "Stas Khrustalev",
+  "workImg": "./_assets/stas-k-work.jpg",
+  "caseURL": "https://www.staskhrustalev.com/the-pillar/",
+  "caseThumbnails": [
+    "./_assets/case-thumbnails/stas-k-thumbnail-1.jpg",
+    "./_assets/case-thumbnails/stas-k-thumbnail-2.jpg",
+    "./_assets/case-thumbnails/stas-k-thumbnail-3.jpg",
+    "./_assets/case-thumbnails/stas-k-thumbnail-4.jpg",
+    "./_assets/case-thumbnails/stas-k-thumbnail-5.jpg",
+    "./_assets/case-thumbnails/stas-k-thumbnail-6.jpg",
+    "./_assets/case-thumbnails/stas-k-thumbnail-7.jpg",
+    "./_assets/case-thumbnails/stas-k-thumbnail-8.jpg",
+    "./_assets/case-thumbnails/stas-k-thumbnail-9.jpg"
+  ]
+}

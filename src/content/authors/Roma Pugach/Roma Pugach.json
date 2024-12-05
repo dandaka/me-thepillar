@@ -1,0 +1,14 @@
+{
+  "order": 5,
+  "name": "Roma Pugach",
+  "workImg": "./_assets/roma-work.jpg",
+  "caseURL": "https://www.behance.net/gallery/208318849/The-PILLAR-The-part-about-me",
+  "caseThumbnails": [
+    "./_assets/case-thumbnails/roma-thumbnail-1.jpg",
+    "./_assets/case-thumbnails/roma-thumbnail-2.jpg",
+    "./_assets/case-thumbnails/roma-thumbnail-3.jpg",
+    "./_assets/case-thumbnails/roma-thumbnail-4.jpg",
+    "./_assets/case-thumbnails/roma-thumbnail-5.jpg",
+    "./_assets/case-thumbnails/roma-thumbnail-6.jpg"
+  ]
+}

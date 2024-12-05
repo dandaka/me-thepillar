@@ -1,0 +1,16 @@
+{
+  "order": 12,
+  "name": "Alexandra Fiodorova",
+  "workImg": "./_assets/alexandra-fed-work.jpg",
+  "caseURL": "https://www.pterodactyl.supplies/thepillar",
+  "caseThumbnails": [
+    "./_assets/case-thumbnails/alexandra-fio-thumbnail-1.jpg",
+    "./_assets/case-thumbnails/alexandra-fio-thumbnail-2.png",
+    "./_assets/case-thumbnails/alexandra-fio-thumbnail-3.png",
+    "./_assets/case-thumbnails/alexandra-fio-thumbnail-4.png",
+    "./_assets/case-thumbnails/alexandra-fio-thumbnail-5.png",
+    "./_assets/case-thumbnails/alexandra-fio-thumbnail-6.png",
+    "./_assets/case-thumbnails/alexandra-fio-thumbnail-7.jpg",
+    "./_assets/case-thumbnails/alexandra-fio-thumbnail-8.jpg"
+  ]
+}

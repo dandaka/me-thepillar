@@ -15,11 +15,12 @@ function getJoinButtonImages() {
       "@assets/images/join-button/*.{jpeg,jpg,png,gif,webp}"
     );
   } catch (e) {
-    console.warn("No images found in the specified folder or folder does not exist.");
+    console.warn(
+      "No images found in the specified folder or folder does not exist."
+    );
     return {};
   }
 }
-
 ---
 
 <html lang="en">
@@ -28,11 +29,17 @@ function getJoinButtonImages() {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>The Pillar — space for deep introspection</title>
+    <meta
+      name="description"
+      content='A collaborative project conceived by Misha Katz, the visionary behind Method.Education, serving as a space for deep introspection of students creative identities through the practice of crafting "self-objects" in 3D.'
+    />
   </head>
   <body class="bg-bg-primary text-main text-text-primary antialiased">
     <header class="mt-14 lg:mt-0">
-      <div class="flex flex-col lg:gap-2 lg:grid lg:grid-cols-7 xl:grid-cols-9 lg:pt-4 container">
+      <div
+        class="flex flex-col lg:gap-2 lg:grid lg:grid-cols-7 xl:grid-cols-9 lg:pt-4 container"
+      >
         <div
           class="top-0 z-[100] fixed inset-x-0 lg:inset-[unset] flex justify-between col-span-2 bg-bg-primary lg:bg-none px-4 py-4 lg:p-0"
         >
@@ -41,12 +48,12 @@ function getJoinButtonImages() {
         </div>
         <p class="lg:col-start-3 lg:col-end-[-1] mt-8 lg:mt-0 text-balance">
           A collaborative project conceived by <a
-            href=""
+            href="https://mishkatz.com/"
             target="_blank"
             class="hover:text-white underline underline-offset-4 decoration-2"
             >Misha Katz</a
           >, the visionary behind <a
-            href=""
+            href="https://method.education/"
             target="_blank"
             class="hover:text-white underline underline-offset-4 decoration-2"
             >Method.Education</a
@@ -99,40 +106,49 @@ function getJoinButtonImages() {
                 <div class="relative z-50 gap-2 lg:grid grid-cols-2 col-start-1 col-end-3 w-full">
                   <div class="lg:block static flex justify-between col-start-2 mt-2 lg:mt-0 text-body">
                     <div class="">{author.name}</div>
-                    <div
-                      data-view-case-button
-                      class="hover:text-white underline lg:pointer-events-auto"
-                    >
-                      View case (→)
-                    </div>
+                    {author.caseURL && (
+                      <div
+                        data-view-case-button
+                        class="hover:text-white underline lg:pointer-events-auto"
+                      >
+                        View case (→)
+                      </div>
+                    )}
                   </div>
                   {/* Cases */}
-                  <div
-                    data-gallery-slides
-                    class="lg:block relative hidden col-span-2 w-full h-[9.6rem]"
-                  >
-                    {author.caseThumbnails &&
-                      author.caseThumbnails.length &&
-                      author.caseThumbnails.map(
-                        (img: ImageMetadata) =>
-                          img && (
-                            <Picture
-                              class="absolute inset-0 w-full h-full invisible object-cover"
-                              width={320}
-                              densities={[1, 2]}
-                              src={img}
-                              alt=""
-                            />
-                          )
-                      )}
-                  </div>
+                  {author.caseThumbnails &&
+                    author.caseThumbnails.length > 0 && (
+                      <div
+                        data-gallery-slides
+                        class="lg:block relative hidden col-span-2 w-full h-[9.6rem]"
+                      >
+                        {author.caseThumbnails.map(
+                          (img: ImageMetadata) =>
+                            img && (
+                              <Picture
+                                class="absolute inset-0 bg-bg-primary w-full h-full invisible object-cover"
+                                width={320}
+                                densities={[1, 2]}
+                                src={img}
+                                alt=""
+                              />
+                            )
+                        )}
+                      </div>
+                    )}
                 </div>
                 {/* Work */}
                 {author.workImg && (
                   <Picture
                     class="col-start-3 col-end-[-1] rounded-[4px] lg:rounded-lg w-full overflow-hidden object-cover"
                     src={author.workImg as ImageMetadata}
-                    widths={[430, 640, 1280, 1920, (author.workImg as ImageMetadata).width]}
+                    widths={[
+                      430,
+                      640,
+                      1280,
+                      1920,
+                      (author.workImg as ImageMetadata).width,
+                    ]}
                     sizes={`(max-width: 430px) 430px, (max-width: 640px) 640px, (max-width: 1280px) 1280px, (max-width: 1920px) 1920px, ${(author.workImg as ImageMetadata).width}px`}
                     alt=""
                   />
@@ -149,46 +165,57 @@ function getJoinButtonImages() {
         id="authors"
         class="flex flex-col gap-x-2 lg:grid lg:grid-cols-7 xl:grid-cols-9 col-span-full pb-40 w-full"
       >
-        <h2 class="col-start-2 mb-4 lg:mb-0 text-body">Authors <br class="lg:block hidden xl:hidden"/>directory:</h2>
+        <h2 class="col-start-2 mb-4 lg:mb-0 text-body">
+          Authors <br class="lg:block hidden xl:hidden" />directory:
+        </h2>
         {
           authorsCollection.map(({ data: author }, i) => (
             <div
               data-author
               class="flex border-y col-start-3 -col-end-1 border-text-primary/30 has-[a:hover]:border-t-white [&~li]:border-b-0 first:border-b-0 last:border-b"
             >
-              <a
-                class="flex justify-between items-center py-3 w-full hover:text-white"
-                href={author.caseURL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>{author.name}</span>
-                {author.caseURL && <span>(→)</span>}
-              </a>
-              <div
-                data-author-slides
-                class={`hidden pointer-events-none lg:block absolute left-0 col-span-2 col-end-3 h-[9.6rem] w-full row-start-${i + 1}`}
-              >
-                {author.caseThumbnails &&
-                  author.caseThumbnails.length &&
-                  author.caseThumbnails.map(
+              {author.caseURL ? (
+                <a
+                  class="flex justify-between items-center py-3 w-full hover:text-white"
+                  href={author.caseURL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>{author.name}</span>
+                  <span>(→)</span>
+                </a>)
+                : (
+                <span class="flex justify-between items-center py-3 w-full">
+                  <span>{author.name}</span>
+                </span>
+                )
+                }
+              {author.caseThumbnails && author.caseThumbnails.length > 0 && (
+                <div
+                  data-author-slides
+                  class={`hidden pointer-events-none lg:block absolute left-0 col-span-2 col-end-3 h-[9.6rem] w-full row-start-${i + 1}`}
+                >
+                  {author.caseThumbnails.map(
                     (img: ImageMetadata) =>
                       img && (
                         <Picture
-                          class="absolute inset-0 h-full invisible object-cover"
+                          class="absolute inset-0 bg-bg-primary h-full invisible object-cover"
                           src={img}
                           alt=""
                         />
                       )
                   )}
-              </div>
+                </div>
+              )}
             </div>
           ))
         }
       </div>
 
       <!-- About -->
-      <h2 class="col-start-2 mb-4 text-body lg:mg-0">About the <br class="lg:block hidden xl:hidden"/>project:</h2>
+      <h2 class="col-start-2 mb-4 text-body lg:mg-0">
+        About the <br class="lg:block hidden xl:hidden" />project:
+      </h2>
       <div id="about" class="flex flex-col gap-11 col-start-3 col-end-[-1]">
         <p>
           The process encompassed both individual and collective elements, with
@@ -222,7 +249,7 @@ function getJoinButtonImages() {
       <a
         id="join"
         data-join-button
-        href=""
+        href="https://docs.google.com/forms/d/e/1FAIpQLSf9kmBEs5OMMIe7DBJth2mF6kfARwajXxd-cd7Mj1O1wgVk_g/viewform"
         class="relative flex justify-center items-center border-white col-start-3 col-end-[-1] mt-40 mb-4 py-[90px] lg:py-[230px] border hover:border-transparent rounded-[4px] w-full lg:w-auto text-[2.5rem] lg:text-[5.18rem] overflow-hidden"
       >
         <span class="relative z-10 mix-blend-difference"
@@ -245,7 +272,7 @@ function getJoinButtonImages() {
       <footer
         class="lg:block bottom-4 fixed hidden col-start-1 row-span-full mt-auto text-body"
       >
-        Curated by <br /><a href="" class="underline">Method.Education</a>
+        Curated by <br /><a href="https://method.education/" target="_blank" class="hover:text-white underline">Method.Education</a>
       </footer>
     </div>
   </body>
@@ -283,6 +310,15 @@ function getJoinButtonImages() {
     //   return
     // }
 
+
+    function calculateStartTrigger(){
+      if (section.id === "join") {
+        return "top 80%";
+      } else {
+        return "top center";
+      }
+    };
+
     function calculateEndTrigger() {
       if (section.id === "join") {
         return "bottom center";
@@ -303,7 +339,7 @@ function getJoinButtonImages() {
 
     ScrollTrigger.create({
       trigger: section,
-      start: () => (section.id === "join" ? "top center" : "top center"),
+      start: () => calculateStartTrigger(),
       end: () => calculateEndTrigger(),
       // markers: true,
       onEnter: () => {
@@ -340,6 +376,8 @@ function getJoinButtonImages() {
     const gallerySlides = author.querySelectorAll(
       "[data-gallery-slides] img"
     ) as NodeListOf<HTMLElement>;
+
+    if (!viewCaseButton || !gallerySlides) return;
 
     viewCaseButton.addEventListener("mouseenter", startGallerySlider);
     viewCaseButton.addEventListener("mouseleave", stopGallerySlider);
@@ -487,9 +525,9 @@ function getJoinButtonImages() {
   menuItems.forEach((item) => {
     item.addEventListener("click", () => {
       if (window.matchMedia("(min-width: 1024px)").matches) {
-      return;
-    }
-    toggleMenuIcon();
+        return;
+      }
+      toggleMenuIcon();
     });
   });
 
