@@ -2,8 +2,10 @@
 import "@styles/base.css";
 import "@styles/index.css";
 
-import { Picture } from "astro:assets";
+import { Picture, Image } from "astro:assets";
 import { getCollection } from "astro:content";
+
+import KatzAvatar from "@assets/images/misha-katz-avatar.gif";
 
 const authorsCollection = await getCollection("authors").then((authors) => {
   return authors.sort((a, b) => a.data.order - b.data.order);
@@ -13,6 +15,19 @@ function getJoinButtonImages() {
   try {
     return import.meta.glob<{ default: ImageMetadata }>(
       "@assets/images/join-button/*.{jpeg,jpg,png,gif,webp}"
+    );
+  } catch (e) {
+    console.warn(
+      "No images found in the specified folder or folder does not exist."
+    );
+    return {};
+  }
+}
+
+function getMethodEduHoverImages() {
+  try {
+    return import.meta.glob<{ default: ImageMetadata }>(
+      "@assets/images/method-education-hover/*.{jpeg,jpg,png,gif,webp}"
     );
   } catch (e) {
     console.warn(
@@ -36,6 +51,39 @@ function getJoinButtonImages() {
     />
   </head>
   <body class="bg-bg-primary text-main text-text-primary antialiased">
+    {/* Custom cursor*/}
+    <div
+      class="lg:block z-[9999] fixed inset-auto justify-center items-center hidden pointer-events-none [contain:_layout] cursor scale-0"
+    >
+      <div class="inner-cursor">
+        <div
+          data-cursor-case
+          class="hidden px-3 py-2 rounded-full bg-text-primary text-bg-primary text-body text-center text-nowrap uppercase"
+        >
+          <span>View case</span>
+        </div>
+        <div data-cursor-katz class="hidden">
+          <Image
+            class="rounded-full w-[8.25rem] overflow-hidden object-contain"
+            src={KatzAvatar}
+            alt="Misha Katz"
+            loading="eager"
+          />
+        </div>
+        <div data-cursor-method class="relative hidden w-[9rem] h-[9rem]">
+          {
+            Object.values(getMethodEduHoverImages()).map((img) => (
+              <Picture
+                class="absolute inset-0 w-full h-full object-cover"
+                src={img()}
+                alt=""
+              />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
     <header class="mt-14 lg:mt-0">
       <div
         class="flex flex-col lg:gap-2 lg:grid lg:grid-cols-7 xl:grid-cols-9 lg:pt-4 container"
@@ -48,11 +96,13 @@ function getJoinButtonImages() {
         </div>
         <p class="lg:col-start-3 lg:col-end-[-1] mt-8 lg:mt-0 text-balance">
           A collaborative project conceived by <a
+            data-link-katz
             href="https://mishkatz.com/"
             target="_blank"
             class="hover:text-white underline underline-offset-4 decoration-2"
             >Misha Katz</a
           >, the visionary behind <a
+            data-link-method
             href="https://method.education/"
             target="_blank"
             class="hover:text-white underline underline-offset-4 decoration-2"
@@ -97,13 +147,13 @@ function getJoinButtonImages() {
             <li class="contents">
               <a
                 data-gallery-work
-                class="flex flex-col-reverse lg:pointer-events-none lg:contents"
-                href={author.caseURL}
+                class="flex flex-col-reverse lg:contents"
+                href={author.caseURL || null}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 {/* Author info */}
-                <div class="relative z-50 gap-2 lg:grid grid-cols-2 col-start-1 col-end-3 w-full">
+                <div class="relative z-50 gap-2 lg:grid grid-cols-2 col-start-1 col-end-3 w-full pointer-events-none">
                   <div class="lg:block static flex justify-between col-start-2 mt-2 lg:mt-0 text-body">
                     <div class="">{author.name}</div>
                     {author.caseURL && (
@@ -140,6 +190,7 @@ function getJoinButtonImages() {
                 {/* Work */}
                 {author.workImg && (
                   <Picture
+                    data-gallery-work
                     class="col-start-3 col-end-[-1] rounded-[4px] lg:rounded-lg w-full overflow-hidden object-cover"
                     src={author.workImg as ImageMetadata}
                     widths={[
@@ -183,13 +234,12 @@ function getJoinButtonImages() {
                 >
                   <span>{author.name}</span>
                   <span>(→)</span>
-                </a>)
-                : (
+                </a>
+              ) : (
                 <span class="flex justify-between items-center py-3 w-full">
                   <span>{author.name}</span>
                 </span>
-                )
-                }
+              )}
               {author.caseThumbnails && author.caseThumbnails.length > 0 && (
                 <div
                   data-author-slides
@@ -252,9 +302,7 @@ function getJoinButtonImages() {
         href="https://docs.google.com/forms/d/e/1FAIpQLSf9kmBEs5OMMIe7DBJth2mF6kfARwajXxd-cd7Mj1O1wgVk_g/viewform"
         class="relative flex justify-center items-center border-white col-start-3 col-end-[-1] mt-40 mb-4 py-[90px] lg:py-[230px] border hover:border-transparent rounded-[4px] w-full lg:w-auto text-[2.5rem] lg:text-[5.18rem] overflow-hidden"
       >
-        <span class="relative z-10 mix-blend-difference"
-          >JOIN THE PILLAR</span
-        >
+        <span class="relative z-10 mix-blend-difference">JOIN THE PILLAR</span>
         <div data-join-slides class="z-0 absolute inset-0">
           {
             Object.values(getJoinButtonImages()).map((img) => (
@@ -272,7 +320,11 @@ function getJoinButtonImages() {
       <footer
         class="lg:block bottom-4 fixed hidden col-start-1 row-span-full mt-auto text-body"
       >
-        Curated by <br /><a href="https://method.education/" target="_blank" class="hover:text-white underline">Method.Education</a>
+        Curated by <br /><a
+          href="https://method.education/"
+          target="_blank"
+          class="hover:text-white underline">Method.Education</a
+        >
       </footer>
     </div>
   </body>
@@ -286,14 +338,148 @@ function getJoinButtonImages() {
   .active-state::before {
     content: "(•)";
   }
+
+  a[href][data-gallery-work] img {
+    cursor: none;
+  }
 </style>
 
 <script>
   import gsap from "gsap";
+  //#region [Cursor]
+  if (matchMedia("(hover: hover)").matches) {
+    const cursorWrapper = document.querySelector(".cursor") as HTMLElement;
+    const linkKatz = document.querySelector("[data-link-katz]") as HTMLElement;
+    const linkMethod = document.querySelector(
+      "[data-link-method]"
+    ) as HTMLElement;
+    const galleryWorks = document.querySelectorAll(
+      "a[href][data-gallery-work] img"
+    ) as NodeListOf<HTMLLinkElement>;
+
+    const cursorKatz = document.querySelector(
+      "[data-cursor-katz]"
+    ) as HTMLElement;
+    const cursorMethod = document.querySelector(
+      "[data-cursor-method]"
+    ) as HTMLElement;
+    const cursorCases = document.querySelector(
+      "[data-cursor-case]"
+    ) as HTMLElement;
+    const cursors = [cursorKatz, cursorMethod, cursorCases];
+
+    const cursorsAnim = gsap.fromTo(
+      cursorWrapper,
+      { scale: 0 },
+      { duration: 0.2, scale: 1, ease: "power2", paused: true }
+    );
+
+    let xTo = gsap.quickTo(cursorWrapper, "x", {
+      duration: 0.2,
+      ease: "power2",
+    });
+    let yTo = gsap.quickTo(cursorWrapper, "y", {
+      duration: 0.2,
+      ease: "power2",
+    });
+
+    gsap.set(cursorWrapper, { xPercent: -50, yPercent: -50 });
+
+    document.body.addEventListener("mousemove", (e) => {
+      xTo(e.clientX);
+      yTo(e.clientY);
+    });
+
+    //#region [Cursor bind]
+    galleryWorks.forEach((work) => {
+      work.addEventListener("mouseenter", (e) => {
+        handleCursorState(cursorCases, { blendMode: true });
+        cursorsAnim.play();
+      });
+      work.addEventListener("mouseleave", (e) => {
+        cursorsAnim.reverse();
+      });
+    });
+
+    linkKatz.addEventListener("mouseenter", (e) => {
+      handleCursorState(cursorKatz, { position: 20 });
+      cursorsAnim.play();
+    });
+    linkKatz.addEventListener("mouseleave", (e) => {
+      cursorsAnim.reverse();
+    });
+
+    linkMethod.addEventListener("mouseenter", (e) => {
+      startSlider();
+      handleCursorState(cursorMethod, { position: 20 });
+      cursorsAnim.play();
+    });
+    linkMethod.addEventListener("mouseleave", (e) => {
+      cursorsAnim.reverse().then(stopSlider);
+    });
+    //#endregion [Cursor bind]
+
+    function handleCursorState(
+      cursorEl,
+      { position = -50, blendMode = false } = {}
+    ) {
+      cursors.forEach((cursor) => {
+        cursor.style.display = "none";
+      });
+      cursorEl.style.display = "block";
+      gsap.set(cursorWrapper, { xPercent: -50, yPercent: position ?? -50 });
+      if (blendMode) {
+        cursorWrapper.style.mixBlendMode = "difference";
+      } else {
+        cursorWrapper.style.mixBlendMode = "";
+      }
+    }
+
+    //#region [Method slides]
+    const methodSlides = document.querySelectorAll(
+      "[data-cursor-method] img"
+    ) as NodeListOf<HTMLImageElement>;
+
+    let sliderIntervals: NodeJS.Timeout[] = [];
+    let sliderTimeout: NodeJS.Timeout[] = [];
+
+    function startSlider() {
+      stopSlider();
+      methodSlides.forEach((slide, i) => {
+        sliderTimeout[i] = setTimeout(() => {
+          slide.classList.toggle("invisible");
+
+          const interval = setInterval(() => {
+            methodSlides.forEach((s) => s.classList.add("invisible"));
+            slide.classList.toggle("invisible");
+          }, methodSlides.length * 300);
+
+          sliderIntervals.push(interval);
+        }, 300 * i);
+      });
+    }
+
+    function stopSlider() {
+      sliderIntervals.forEach(clearInterval);
+      sliderIntervals = [];
+      sliderTimeout.forEach(clearTimeout);
+      sliderTimeout = [];
+
+      methodSlides.forEach((slide) => {
+        slide.classList.add("invisible");
+      });
+    }
+    //#endregion [Method slides]
+  }
+  //#endregion [Cursor]
+</script>
+
+<script>
+  //#region [Menu]
+  import gsap from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   gsap.registerPlugin(ScrollTrigger);
 
-  //#region [Menu]
   const menuItems = document.querySelectorAll(
     "[data-menu-item]"
   ) as NodeListOf<HTMLLinkElement>;
@@ -310,14 +496,13 @@ function getJoinButtonImages() {
     //   return
     // }
 
-
-    function calculateStartTrigger(){
+    function calculateStartTrigger() {
       if (section.id === "join") {
         return "top 80%";
       } else {
         return "top center";
       }
-    };
+    }
 
     function calculateEndTrigger() {
       if (section.id === "join") {
@@ -544,11 +729,14 @@ function getJoinButtonImages() {
 </script>
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BEZYJZS8SY"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BEZYJZS8SY"
+></script>
 <script is:inline>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
 
-  gtag('config', 'G-BEZYJZS8SY');
+  gtag("config", "G-BEZYJZS8SY");
 </script>
