@@ -8,7 +8,11 @@ import { getCollection } from "astro:content";
 import KatzAvatar from "@assets/images/misha-katz-avatar.gif";
 
 const authorsCollection = await getCollection("authors").then((authors) => {
-  return authors.sort((a, b) => a.data.order - b.data.order);
+  return authors.sort((a, b) => {
+    const orderA = a.data.caseURL ? a.data.order : a.data.order + 1000;
+    const orderB = b.data.caseURL ? b.data.order : b.data.order + 1000;
+    return orderA - orderB;
+  });
 });
 
 const authorsFeaturedCollection = [];
@@ -56,7 +60,7 @@ function getMethodEduHoverImages() {
     <meta property="og:image" content="/opengraph.png" />
     <meta
       name="description"
-      content='A collaborative project conceived by Misha Katz, the visionary behind Method.Education, serving as a space for deep introspection of students creative identities through the practice of crafting "self-objects" in 3D.'
+      content="A collaborative project conceived by Misha Katz, the visionary behind Method.Education, serving as a space for deep introspection of students' creative identities through the practice of crafting 'self-objects' in 3D."
     />
   </head>
   <body class="bg-bg-primary text-main text-text-primary antialiased">
@@ -116,7 +120,7 @@ function getMethodEduHoverImages() {
             target="_blank"
             class="hover:text-white underline underline-offset-4 decoration-2"
             >Method.Education</a
-          >, serving as a space for deep introspection of students creative
+          >, serving as a space for deep introspection of students' creative
           identities through the practice of crafting "self-objects" in 3D.
         </p>
       </div>
