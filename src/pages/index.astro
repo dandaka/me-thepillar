@@ -17,7 +17,6 @@ const authorsCollection = await getCollection("authors").then((authors) => {
 
 const authorsFeaturedCollection = [];
 authorsCollection.forEach((author) => {
-  console.log(author.data.name, author.data.isFeatured);
   if (author.data.isFeatured === true) {
     authorsFeaturedCollection.push(author);
   }
@@ -281,28 +280,28 @@ function getMethodEduHoverImages() {
       </h2>
       <div id="about" class="flex flex-col gap-11 col-start-3 col-end-[-1]">
         <p>
-          The process encompassed both individual and collective elements, with
+          The process encompasses both individual and collective elements, with
           each participant delving into their essence by creating and detailing
           three-dimensional self-objects on their personal segment of the
-          Pillar. These objects, embodying the creator’s inner world, offered
+          Pillar. These objects, embodying the creator’s inner world, offer
           a symbolic interpretation of their views and values in a tangible
           form.
         </p>
         <p>
-          A distinctive feature of the project was the personalized mentoring
+          A distinctive feature of the project are the personalized mentoring
           sessions, an integral part of the educational experience. These
-          meetings allowed each student to explore their ideas and experiences
+          meetings allow each student to explore their ideas and experiences
           more deeply, receiving tailored guidance and support.
         </p>
         <p>
           By employing 3D visualization techniques and storytelling, the project
-          bridged the internal and external, the personal and the communal, the
-          technical and the spiritual. It demonstrated how profound
+          bridge the internal and external, the personal and the communal, the
+          technical and the spiritual. It demonstrates how profound
           self-discovery and collective engagement, through both planned and
           intuitive elements, can lead to the unlocking of creative potential
-          and self-realization. Through this journey, students not only learned
-          the technical aspects of their craft but also underwent
-          a transformation, gaining confidence in their capabilities and
+          and self-realization. Through this journey, students not only learn
+          the technical aspects of their craft but also undergo
+          a transformation, gain confidence in their capabilities and
           a deeper understanding of their own creative "self."
         </p>
       </div>
