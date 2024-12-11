@@ -1,5 +1,6 @@
 {
   "order": 4,
+  "isFeatured": true,
   "name": "Dima Besedin",
   "workImg": "./_assets/dima-work.jpg",
   "caseURL": "",

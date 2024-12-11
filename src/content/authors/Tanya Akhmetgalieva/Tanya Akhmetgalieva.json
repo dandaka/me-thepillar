@@ -1,5 +1,6 @@
 {
-    "order": 1,
+    "order": 2,
+    "isFeatured": true,
     "name": "Tanya Akhmetgalieva",
     "workImg": "./_assets/tanya-work.jpg",
     "caseURL": "https://www.behance.net/gallery/205516987/THE-PILLAR",

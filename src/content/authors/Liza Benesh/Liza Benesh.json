@@ -1,5 +1,6 @@
 {
-    "order": 2,
+    "order": 1,
+    "isFeatured": true,
     "name": "Liza Benesh",
     "workImg": "./_assets/liza-work.png",
     "caseURL": "https://www.behance.net/gallery/205560743/The-Pillar-A-Creative-Journey-Through-Summer-3D-Camp",

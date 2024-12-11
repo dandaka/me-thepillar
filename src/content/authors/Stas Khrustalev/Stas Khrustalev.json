@@ -1,5 +1,6 @@
 {
   "order": 7,
+  "isFeatured": true,
   "name": "Stas Khrustalev",
   "workImg": "./_assets/stas-k-work.jpg",
   "caseURL": "https://www.staskhrustalev.com/the-pillar/",

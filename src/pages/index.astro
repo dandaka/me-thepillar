@@ -11,6 +11,14 @@ const authorsCollection = await getCollection("authors").then((authors) => {
   return authors.sort((a, b) => a.data.order - b.data.order);
 });
 
+const authorsFeaturedCollection = [];
+authorsCollection.forEach((author) => {
+  console.log(author.data.name, author.data.isFeatured);
+  if (author.data.isFeatured === true) {
+    authorsFeaturedCollection.push(author);
+  }
+});
+
 function getJoinButtonImages() {
   try {
     return import.meta.glob<{ default: ImageMetadata }>(
@@ -143,7 +151,7 @@ function getMethodEduHoverImages() {
       <div id="gallery" class="absolute col-span-full"></div>
       <ul class="lg:contents flex flex-col gap-2" aria-title="Gallery">
         {
-          authorsCollection.map(({ data: author }) => (
+          authorsFeaturedCollection.map(({ data: author }) => (
             <li class="contents">
               <a
                 data-gallery-work

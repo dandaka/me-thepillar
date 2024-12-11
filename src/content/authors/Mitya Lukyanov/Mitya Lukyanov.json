@@ -1,5 +1,6 @@
 {
   "order": 10,
+  "isFeatured": true,
   "name": "Mitya Lukyanov",
   "workImg": "./_assets/mitya-luk-work.png",
   "caseURL": "https://readymag.website/u3033233810/4924837/",
