@@ -3,6 +3,12 @@
   "isFeatured": true,
   "name": "Dima Besedin",
   "workImg": "./_assets/dima-work.png",
-  "caseURL": "",
-  "caseThumbnails": []
+  "caseURL": "https://readymag.website/u619173210/4975127/",
+  "thumbnails": "./_assets/case-thumbnails",
+  "caseThumbnails": [
+    "./_assets/case-thumbnails/besedin-grid-thumbnail-1.jpg",
+    "./_assets/case-thumbnails/besedin-grid-thumbnail-2.jpg",
+    "./_assets/case-thumbnails/besedin-grid-thumbnail-3.jpg",
+    "./_assets/case-thumbnails/besedin-grid-thumbnail-4.jpg"
+  ]
 }

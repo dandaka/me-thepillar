@@ -1,50 +1,50 @@
 ---
-import "@styles/base.css";
-import "@styles/index.css";
+import '@styles/base.css'
+import '@styles/index.css'
 
-import { Picture, Image } from "astro:assets";
-import { getCollection } from "astro:content";
+import { Picture, Image } from 'astro:assets'
+import { getCollection } from 'astro:content'
 
-import KatzAvatar from "@assets/images/misha-katz-avatar.gif";
+import KatzAvatar from '@assets/images/misha-katz-avatar.gif'
 
-const authorsCollection = await getCollection("authors").then((authors) => {
+const authorsCollection = await getCollection('authors').then((authors) => {
   return authors.sort((a, b) => {
-    const orderA = a.data.caseURL ? a.data.order : a.data.order + 1000;
-    const orderB = b.data.caseURL ? b.data.order : b.data.order + 1000;
-    return orderA - orderB;
-  });
-});
+    const orderA = a.data.caseURL ? a.data.order : a.data.order + 1000
+    const orderB = b.data.caseURL ? b.data.order : b.data.order + 1000
+    return orderA - orderB
+  })
+})
 
-const authorsFeaturedCollection = [];
+const authorsFeaturedCollection = []
 authorsCollection.forEach((author) => {
   if (author.data.isFeatured === true) {
-    authorsFeaturedCollection.push(author);
+    authorsFeaturedCollection.push(author)
   }
-});
+})
 
 function getJoinButtonImages() {
   try {
     return import.meta.glob<{ default: ImageMetadata }>(
-      "@assets/images/join-button/*.{jpeg,jpg,png,gif,webp}"
-    );
+      '@assets/images/join-button/*.{jpeg,jpg,png,gif,webp}'
+    )
   } catch (e) {
     console.warn(
-      "No images found in the specified folder or folder does not exist."
-    );
-    return {};
+      'No images found in the specified folder or folder does not exist.'
+    )
+    return {}
   }
 }
 
 function getMethodEduHoverImages() {
   try {
     return import.meta.glob<{ default: ImageMetadata }>(
-      "@assets/images/method-education-hover/*.{jpeg,jpg,png,gif,webp}"
-    );
+      '@assets/images/method-education-hover/*.{jpeg,jpg,png,gif,webp}'
+    )
   } catch (e) {
     console.warn(
-      "No images found in the specified folder or folder does not exist."
-    );
-    return {};
+      'No images found in the specified folder or folder does not exist.'
+    )
+    return {}
   }
 }
 ---
@@ -136,7 +136,7 @@ function getMethodEduHoverImages() {
       >
         <ul class="flex flex-col gap-2 lg:gap-0">
           {
-            ["Gallery", "Authors", "About", "Join"].map((item) => (
+            ['Gallery', 'Authors', 'About', 'Join'].map((item) => (
               <li class="">
                 <a
                   data-menu-item
@@ -301,8 +301,8 @@ function getMethodEduHoverImages() {
           intuitive elements, can lead to the unlocking of creative potential
           and self-realization. Through this journey, students not only learn
           the technical aspects of their craft but also undergo
-          a transformation, gain confidence in their capabilities and
-          a deeper understanding of their own creative "self."
+          a transformation, gain confidence in their capabilities and a deeper
+          understanding of their own creative "self."
         </p>
       </div>
 
@@ -348,7 +348,7 @@ function getMethodEduHoverImages() {
   }
 
   .active-state::before {
-    content: "(•)";
+    content: '(•)';
   }
 
   a[href][data-gallery-work] img {
@@ -357,78 +357,78 @@ function getMethodEduHoverImages() {
 </style>
 
 <script>
-  import gsap from "gsap";
+  import gsap from 'gsap'
   //#region [Cursor]
-  if (matchMedia("(hover: hover)").matches) {
-    const cursorWrapper = document.querySelector(".cursor") as HTMLElement;
-    const linkKatz = document.querySelector("[data-link-katz]") as HTMLElement;
+  if (matchMedia('(hover: hover)').matches) {
+    const cursorWrapper = document.querySelector('.cursor') as HTMLElement
+    const linkKatz = document.querySelector('[data-link-katz]') as HTMLElement
     const linkMethod = document.querySelector(
-      "[data-link-method]"
-    ) as HTMLElement;
+      '[data-link-method]'
+    ) as HTMLElement
     const galleryWorks = document.querySelectorAll(
-      "a[href][data-gallery-work] img"
-    ) as NodeListOf<HTMLLinkElement>;
+      'a[href][data-gallery-work] img'
+    ) as NodeListOf<HTMLLinkElement>
 
     const cursorKatz = document.querySelector(
-      "[data-cursor-katz]"
-    ) as HTMLElement;
+      '[data-cursor-katz]'
+    ) as HTMLElement
     const cursorMethod = document.querySelector(
-      "[data-cursor-method]"
-    ) as HTMLElement;
+      '[data-cursor-method]'
+    ) as HTMLElement
     const cursorCases = document.querySelector(
-      "[data-cursor-case]"
-    ) as HTMLElement;
-    const cursors = [cursorKatz, cursorMethod, cursorCases];
+      '[data-cursor-case]'
+    ) as HTMLElement
+    const cursors = [cursorKatz, cursorMethod, cursorCases]
 
     const cursorsAnim = gsap.fromTo(
       cursorWrapper,
       { scale: 0 },
-      { duration: 0.2, scale: 1, ease: "power2", paused: true }
-    );
+      { duration: 0.2, scale: 1, ease: 'power2', paused: true }
+    )
 
-    let xTo = gsap.quickTo(cursorWrapper, "x", {
+    let xTo = gsap.quickTo(cursorWrapper, 'x', {
       duration: 0.2,
-      ease: "power2",
-    });
-    let yTo = gsap.quickTo(cursorWrapper, "y", {
+      ease: 'power2',
+    })
+    let yTo = gsap.quickTo(cursorWrapper, 'y', {
       duration: 0.2,
-      ease: "power2",
-    });
+      ease: 'power2',
+    })
 
-    gsap.set(cursorWrapper, { xPercent: -50, yPercent: -50 });
+    gsap.set(cursorWrapper, { xPercent: -50, yPercent: -50 })
 
-    document.body.addEventListener("mousemove", (e) => {
-      xTo(e.clientX);
-      yTo(e.clientY);
-    });
+    document.body.addEventListener('mousemove', (e) => {
+      xTo(e.clientX)
+      yTo(e.clientY)
+    })
 
     //#region [Cursor bind]
     galleryWorks.forEach((work) => {
-      work.addEventListener("mouseenter", (e) => {
-        handleCursorState(cursorCases, { blendMode: true });
-        cursorsAnim.play();
-      });
-      work.addEventListener("mouseleave", (e) => {
-        cursorsAnim.reverse();
-      });
-    });
+      work.addEventListener('mouseenter', (e) => {
+        handleCursorState(cursorCases, { blendMode: true })
+        cursorsAnim.play()
+      })
+      work.addEventListener('mouseleave', (e) => {
+        cursorsAnim.reverse()
+      })
+    })
 
-    linkKatz.addEventListener("mouseenter", (e) => {
-      handleCursorState(cursorKatz, { position: 20 });
-      cursorsAnim.play();
-    });
-    linkKatz.addEventListener("mouseleave", (e) => {
-      cursorsAnim.reverse();
-    });
+    linkKatz.addEventListener('mouseenter', (e) => {
+      handleCursorState(cursorKatz, { position: 20 })
+      cursorsAnim.play()
+    })
+    linkKatz.addEventListener('mouseleave', (e) => {
+      cursorsAnim.reverse()
+    })
 
-    linkMethod.addEventListener("mouseenter", (e) => {
-      startSlider();
-      handleCursorState(cursorMethod, { position: 20 });
-      cursorsAnim.play();
-    });
-    linkMethod.addEventListener("mouseleave", (e) => {
-      cursorsAnim.reverse().then(stopSlider);
-    });
+    linkMethod.addEventListener('mouseenter', (e) => {
+      startSlider()
+      handleCursorState(cursorMethod, { position: 20 })
+      cursorsAnim.play()
+    })
+    linkMethod.addEventListener('mouseleave', (e) => {
+      cursorsAnim.reverse().then(stopSlider)
+    })
     //#endregion [Cursor bind]
 
     function handleCursorState(
@@ -436,50 +436,50 @@ function getMethodEduHoverImages() {
       { position = -50, blendMode = false } = {}
     ) {
       cursors.forEach((cursor) => {
-        cursor.style.display = "none";
-      });
-      cursorEl.style.display = "block";
-      gsap.set(cursorWrapper, { xPercent: -50, yPercent: position ?? -50 });
+        cursor.style.display = 'none'
+      })
+      cursorEl.style.display = 'block'
+      gsap.set(cursorWrapper, { xPercent: -50, yPercent: position ?? -50 })
       if (blendMode) {
-        cursorWrapper.style.mixBlendMode = "difference";
+        cursorWrapper.style.mixBlendMode = 'difference'
       } else {
-        cursorWrapper.style.mixBlendMode = "";
+        cursorWrapper.style.mixBlendMode = ''
       }
     }
 
     //#region [Method slides]
     const methodSlides = document.querySelectorAll(
-      "[data-cursor-method] img"
-    ) as NodeListOf<HTMLImageElement>;
+      '[data-cursor-method] img'
+    ) as NodeListOf<HTMLImageElement>
 
-    let sliderIntervals: NodeJS.Timeout[] = [];
-    let sliderTimeout: NodeJS.Timeout[] = [];
+    let sliderIntervals: NodeJS.Timeout[] = []
+    let sliderTimeout: NodeJS.Timeout[] = []
 
     function startSlider() {
-      stopSlider();
+      stopSlider()
       methodSlides.forEach((slide, i) => {
         sliderTimeout[i] = setTimeout(() => {
-          slide.classList.toggle("invisible");
+          slide.classList.toggle('invisible')
 
           const interval = setInterval(() => {
-            methodSlides.forEach((s) => s.classList.add("invisible"));
-            slide.classList.toggle("invisible");
-          }, methodSlides.length * 300);
+            methodSlides.forEach((s) => s.classList.add('invisible'))
+            slide.classList.toggle('invisible')
+          }, methodSlides.length * 300)
 
-          sliderIntervals.push(interval);
-        }, 300 * i);
-      });
+          sliderIntervals.push(interval)
+        }, 300 * i)
+      })
     }
 
     function stopSlider() {
-      sliderIntervals.forEach(clearInterval);
-      sliderIntervals = [];
-      sliderTimeout.forEach(clearTimeout);
-      sliderTimeout = [];
+      sliderIntervals.forEach(clearInterval)
+      sliderIntervals = []
+      sliderTimeout.forEach(clearTimeout)
+      sliderTimeout = []
 
       methodSlides.forEach((slide) => {
-        slide.classList.add("invisible");
-      });
+        slide.classList.add('invisible')
+      })
     }
     //#endregion [Method slides]
   }
@@ -488,49 +488,49 @@ function getMethodEduHoverImages() {
 
 <script>
   //#region [Menu]
-  import gsap from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  gsap.registerPlugin(ScrollTrigger);
+  import gsap from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+  gsap.registerPlugin(ScrollTrigger)
 
   const menuItems = document.querySelectorAll(
-    "[data-menu-item]"
-  ) as NodeListOf<HTMLLinkElement>;
+    '[data-menu-item]'
+  ) as NodeListOf<HTMLLinkElement>
 
   menuItems.forEach((item) => {
     // add active state if section with same id is in viewport
     const section = document.querySelector(
-      `#${item.href.split("#")[1]}`
-    ) as HTMLElement;
+      `#${item.href.split('#')[1]}`
+    ) as HTMLElement
 
-    if (!section) return;
+    if (!section) return
 
     // if (section.id !== "about") {
     //   return
     // }
 
     function calculateStartTrigger() {
-      if (section.id === "join") {
-        return "top 80%";
+      if (section.id === 'join') {
+        return 'top 80%'
       } else {
-        return "top center";
+        return 'top center'
       }
     }
 
     function calculateEndTrigger() {
-      if (section.id === "join") {
-        return "bottom center";
-      } else if (section.id === "gallery") {
+      if (section.id === 'join') {
+        return 'bottom center'
+      } else if (section.id === 'gallery') {
         const lastGalleryWorks = document.querySelectorAll(
-          "[data-gallery-work] > picture img"
-        ) as NodeListOf<HTMLImageElement>;
+          '[data-gallery-work] > picture img'
+        ) as NodeListOf<HTMLImageElement>
 
-        let worksLength = 0;
+        let worksLength = 0
         lastGalleryWorks.forEach((work) => {
-          worksLength += work.getBoundingClientRect().height;
-        });
-        return `bottom+=${worksLength}px center`;
+          worksLength += work.getBoundingClientRect().height
+        })
+        return `bottom+=${worksLength}px center`
       } else {
-        return "bottom center";
+        return 'bottom center'
       }
     }
 
@@ -541,18 +541,18 @@ function getMethodEduHoverImages() {
       // markers: true,
       onEnter: () => {
         menuItems.forEach((item) => {
-          item.classList.remove("active-state");
-        });
-        item.classList.add("active-state");
+          item.classList.remove('active-state')
+        })
+        item.classList.add('active-state')
       },
       onEnterBack: () => {
         menuItems.forEach((item) => {
-          item.classList.remove("active-state");
-        });
-        item.classList.add("active-state");
+          item.classList.remove('active-state')
+        })
+        item.classList.add('active-state')
       },
-    });
-  });
+    })
+  })
 
   //#endregion [Menu]
 </script>
@@ -560,183 +560,181 @@ function getMethodEduHoverImages() {
 <script>
   //#region [Gallery slides]
   const galleryWorks = document.querySelectorAll(
-    "[data-gallery-work]"
-  ) as NodeListOf<HTMLElement>;
+    '[data-gallery-work]'
+  ) as NodeListOf<HTMLElement>
 
-  let sliderGalleryIntervals: NodeJS.Timeout[] = [];
-  let sliderGalleryTimeout: NodeJS.Timeout[] = [];
+  let sliderGalleryIntervals: NodeJS.Timeout[] = []
+  let sliderGalleryTimeout: NodeJS.Timeout[] = []
 
   galleryWorks.forEach((author) => {
     const viewCaseButton = author.querySelector(
-      "[data-view-case-button]"
-    ) as HTMLElement;
+      '[data-view-case-button]'
+    ) as HTMLElement
     const gallerySlides = author.querySelectorAll(
-      "[data-gallery-slides] img"
-    ) as NodeListOf<HTMLElement>;
+      '[data-gallery-slides] img'
+    ) as NodeListOf<HTMLElement>
 
-    if (!viewCaseButton || !gallerySlides) return;
+    if (!viewCaseButton || !gallerySlides) return
 
-    viewCaseButton.addEventListener("mouseenter", startGallerySlider);
-    viewCaseButton.addEventListener("mouseleave", stopGallerySlider);
+    viewCaseButton.addEventListener('mouseenter', startGallerySlider)
+    viewCaseButton.addEventListener('mouseleave', stopGallerySlider)
 
     function startGallerySlider() {
-      stopGallerySlider();
+      stopGallerySlider()
 
       gallerySlides.forEach((slide, i) => {
         sliderGalleryTimeout[i] = setTimeout(() => {
-          slide.classList.toggle("invisible");
+          slide.classList.toggle('invisible')
 
           const interval = setInterval(() => {
-            gallerySlides.forEach((s) => s.classList.add("invisible"));
-            slide.classList.toggle("invisible");
-          }, gallerySlides.length * 300);
+            gallerySlides.forEach((s) => s.classList.add('invisible'))
+            slide.classList.toggle('invisible')
+          }, gallerySlides.length * 300)
 
-          sliderGalleryIntervals.push(interval);
-        }, 300 * i);
-      });
+          sliderGalleryIntervals.push(interval)
+        }, 300 * i)
+      })
     }
 
     function stopGallerySlider() {
-      sliderGalleryIntervals.forEach((interval) => clearInterval(interval));
-      sliderGalleryIntervals = [];
-      sliderGalleryTimeout.forEach((timeout) => window.clearTimeout(timeout));
-      sliderGalleryTimeout = [];
+      sliderGalleryIntervals.forEach((interval) => clearInterval(interval))
+      sliderGalleryIntervals = []
+      sliderGalleryTimeout.forEach((timeout) => window.clearTimeout(timeout))
+      sliderGalleryTimeout = []
 
       gallerySlides.forEach((slide) => {
-        slide.classList.add("invisible");
-      });
+        slide.classList.add('invisible')
+      })
     }
-  });
+  })
   //#endregion [Gallery slides]
 
   //#region [Authors slides]
   const authors = document.querySelectorAll(
-    "[data-author]"
-  ) as NodeListOf<HTMLElement>;
+    '[data-author]'
+  ) as NodeListOf<HTMLElement>
 
-  let sliderAuthorsIntervals: NodeJS.Timeout[] = [];
-  let sliderAuthorsTimeout: NodeJS.Timeout[] = [];
+  let sliderAuthorsIntervals: NodeJS.Timeout[] = []
+  let sliderAuthorsTimeout: NodeJS.Timeout[] = []
 
   authors.forEach((author) => {
     const authorSlides = author.querySelectorAll(
-      "[data-author-slides] img"
-    ) as NodeListOf<HTMLElement>;
+      '[data-author-slides] img'
+    ) as NodeListOf<HTMLElement>
 
-    author.addEventListener("mouseenter", startGallerySlider);
-    author.addEventListener("mouseleave", stopGallerySlider);
+    author.addEventListener('mouseenter', startGallerySlider)
+    author.addEventListener('mouseleave', stopGallerySlider)
 
     function startGallerySlider() {
-      stopGallerySlider();
+      stopGallerySlider()
 
       authorSlides.forEach((slide, i) => {
         sliderAuthorsTimeout[i] = setTimeout(() => {
-          slide.classList.toggle("invisible");
+          slide.classList.toggle('invisible')
 
           const interval = setInterval(() => {
-            authorSlides.forEach((s) => s.classList.add("invisible"));
-            slide.classList.toggle("invisible");
-          }, authorSlides.length * 300);
+            authorSlides.forEach((s) => s.classList.add('invisible'))
+            slide.classList.toggle('invisible')
+          }, authorSlides.length * 300)
 
-          sliderAuthorsIntervals.push(interval);
-        }, 300 * i);
-      });
+          sliderAuthorsIntervals.push(interval)
+        }, 300 * i)
+      })
     }
 
     function stopGallerySlider() {
-      sliderAuthorsIntervals.forEach((interval) => clearInterval(interval));
-      sliderAuthorsIntervals = [];
-      sliderAuthorsTimeout.forEach((timeout) => window.clearTimeout(timeout));
-      sliderAuthorsTimeout = [];
+      sliderAuthorsIntervals.forEach((interval) => clearInterval(interval))
+      sliderAuthorsIntervals = []
+      sliderAuthorsTimeout.forEach((timeout) => window.clearTimeout(timeout))
+      sliderAuthorsTimeout = []
 
       authorSlides.forEach((slide) => {
-        slide.classList.add("invisible");
-      });
+        slide.classList.add('invisible')
+      })
     }
-  });
+  })
   //#endregion [Authors slides]
 
   //#region [Join slides]
-  const joinSlidesContainer = document.querySelector("[data-join-slides]");
+  const joinSlidesContainer = document.querySelector('[data-join-slides]')
   const joinSlides = joinSlidesContainer.querySelectorAll(
-    "img"
-  ) as NodeListOf<HTMLImageElement>;
-  const joinButton = document.querySelector("[data-join-button]");
+    'img'
+  ) as NodeListOf<HTMLImageElement>
+  const joinButton = document.querySelector('[data-join-button]')
 
-  let sliderIntervals: NodeJS.Timeout[] = [];
-  let sliderTimeout: NodeJS.Timeout[] = [];
+  let sliderIntervals: NodeJS.Timeout[] = []
+  let sliderTimeout: NodeJS.Timeout[] = []
 
   function startSlider() {
-    stopSlider();
+    stopSlider()
 
     joinSlides.forEach((slide, i) => {
       sliderTimeout[i] = setTimeout(() => {
-        slide.classList.toggle("invisible");
+        slide.classList.toggle('invisible')
 
         const interval = setInterval(() => {
-          joinSlides.forEach((s) => s.classList.add("invisible"));
-          slide.classList.toggle("invisible");
-        }, joinSlides.length * 300);
+          joinSlides.forEach((s) => s.classList.add('invisible'))
+          slide.classList.toggle('invisible')
+        }, joinSlides.length * 300)
 
-        sliderIntervals.push(interval);
-      }, 300 * i);
-    });
+        sliderIntervals.push(interval)
+      }, 300 * i)
+    })
   }
 
   function stopSlider() {
-    sliderIntervals.forEach(clearInterval);
-    sliderIntervals = [];
-    sliderTimeout.forEach(clearTimeout);
-    sliderTimeout = [];
+    sliderIntervals.forEach(clearInterval)
+    sliderIntervals = []
+    sliderTimeout.forEach(clearTimeout)
+    sliderTimeout = []
 
     joinSlides.forEach((slide) => {
-      slide.classList.add("invisible");
-    });
+      slide.classList.add('invisible')
+    })
   }
 
-  joinButton.addEventListener("mouseenter", startSlider);
-  joinButton.addEventListener("mouseleave", stopSlider);
+  joinButton.addEventListener('mouseenter', startSlider)
+  joinButton.addEventListener('mouseleave', stopSlider)
   //#endregion [Join slides]
 </script>
 
 <script>
   //#region [Mobile menu]
-  const menuEl = document.querySelector("[data-menu]") as HTMLElement;
-  const menuToggle = document.querySelector(
-    "[data-menu-button]"
-  ) as HTMLElement;
+  const menuEl = document.querySelector('[data-menu]') as HTMLElement
+  const menuToggle = document.querySelector('[data-menu-button]') as HTMLElement
   const menuItems = document.querySelectorAll(
-    "[data-menu-item]"
-  ) as NodeListOf<HTMLLinkElement>;
+    '[data-menu-item]'
+  ) as NodeListOf<HTMLLinkElement>
 
   function toggleMenuIcon() {
-    menuToggle.innerText = menuToggle.innerText === "(+)" ? "(-)" : "(+)";
-    menuEl.classList.toggle("hidden");
+    menuToggle.innerText = menuToggle.innerText === '(+)' ? '(-)' : '(+)'
+    menuEl.classList.toggle('hidden')
   }
 
-  menuToggle.addEventListener("click", () => {
-    if (window.matchMedia("(min-width: 1024px)").matches) {
-      return;
+  menuToggle.addEventListener('click', () => {
+    if (window.matchMedia('(min-width: 1024px)').matches) {
+      return
     }
-    toggleMenuIcon();
-  });
+    toggleMenuIcon()
+  })
   menuItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      if (window.matchMedia("(min-width: 1024px)").matches) {
-        return;
+    item.addEventListener('click', () => {
+      if (window.matchMedia('(min-width: 1024px)').matches) {
+        return
       }
-      toggleMenuIcon();
-    });
-  });
+      toggleMenuIcon()
+    })
+  })
 
   // Handle click outside menu
-  document.addEventListener("click", (e) => {
-    const target = e.target as HTMLElement;
-    if (target.closest("[data-menu]") || target.closest("[data-menu-button]")) {
-      return;
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement
+    if (target.closest('[data-menu]') || target.closest('[data-menu-button]')) {
+      return
     } else {
-      menuEl.classList.add("hidden");
+      menuEl.classList.add('hidden')
     }
-  });
+  })
   //#endregion [Mobile menu]
 </script>
 
@@ -744,11 +742,11 @@ function getMethodEduHoverImages() {
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BEZYJZS8SY"
 ></script>
 <script is:inline>
-  window.dataLayer = window.dataLayer || [];
+  window.dataLayer = window.dataLayer || []
   function gtag() {
-    dataLayer.push(arguments);
+    dataLayer.push(arguments)
   }
-  gtag("js", new Date());
+  gtag('js', new Date())
 
-  gtag("config", "G-BEZYJZS8SY");
+  gtag('config', 'G-BEZYJZS8SY')
 </script>
